@@ -9,15 +9,16 @@ import { environment } from '../../environments/environment';
 export class AuthService {
 
   private api = environment.api;
-  token: any = String;
-  userId: any = String;
+  token: any | String;
+  userId: any | String;
   isAuth$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) { }
 
   signup(email: string, password: string) {
-    return new Promise<any>((resolve, reject) => {
-      this.http.post(this.api+'/users/signup', {email: email, password: password}).subscribe((signupData: {status: number, message: string }) =>{
+    return new Promise((resolve, reject) => {
+      // @ts-ignore
+      this.http.post(this.api+'/users/signup', {email: email, password: password}).subscribe((signupData:  {status: number, message: string }) =>{
         if (signupData.status === 201) {
           // authentifier l'utilisateur
           this.signin(email, password)
@@ -39,11 +40,14 @@ export class AuthService {
 
   signin(email: string, password: string) {
 
-    return new Promise<any>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
+      // @ts-ignore
       this.http.post(this.api+'/users/login', {email: email, password: password}).subscribe((authData: {token: string, userId: string}) =>  {
             this.token = authData.token;
             this.userId = authData.userId;
             this.isAuth$.next(true);
+            console.log(authData);
+
             resolve(true);
           },
           (err)=>{

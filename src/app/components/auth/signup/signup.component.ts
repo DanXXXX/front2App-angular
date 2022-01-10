@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
     .then(() => {
         this.router.navigate(['/shop']);
     }).catch((err) => {
-        this.errorMessage = this.errorMessage;
+        this.errorMessage = err.message;
     });
   }
 

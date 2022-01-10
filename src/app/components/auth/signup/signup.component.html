@@ -13,7 +13,7 @@
               <h3 class="title text-capitalize mb-30 pb-25">Create an account</h3>
               <div class="log-in-form">
                   <form class="personal-information" [formGroup]="signupForm" >
-                      <div class="alert alert-danger" ></div>
+                      <div class="alert alert-danger" *ngIf="errorMessage" >{{ errorMessage }} </div>
                       <div class="order-asguest theme1 mb-3">
                           <span>Already have an account?</span>
                           <a class="text-muted hover-color" routerLink="/signin">Log in instead!</a>
@@ -38,8 +38,6 @@
                           </div>
                       </div>
 
-
-
                     <div class="form-group row pb-3 text-center">
                       <div class="col-md-6 offset-md-3">
                           <div class="login-form-links">
@@ -54,7 +52,7 @@
                       </div>
                   </div>
 
-                  </form>
+                </form>
               </div>
           </div>
       </div>
