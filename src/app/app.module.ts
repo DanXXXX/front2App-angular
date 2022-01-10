@@ -17,6 +17,7 @@ import { NotFoundComponent } from './components/partials/not-found/not-found.com
 import { HeaderPageComponent } from './components/partials/header-page/header-page.component';
 import { AddToCartMoalComponent } from './components/partials/modal/quick-view-modal/add-to-cart-moal/add-to-cart-moal.component';
 import { DeleteProductModalComponent } from './components/partials/modal/delete-product-modal/delete-product-modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { DeleteProductModalComponent } from './components/partials/modal/delete-
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
