@@ -58,4 +58,68 @@ export class ProductService {
     })
   }
 
+  createNewProduct(product: Product, image: File){
+    return new Promise<void>((resolve, reject) => {
+      let productData: FormData = new FormData();
+      productData.append('product', JSON.stringify(product));
+      productData.append('image', image);
+
+      this.http.post(this.api+"/products", productData).subscribe(
+        (data: any = Data)=>{
+          if (data.status === 201) {
+            this.getProducts();
+            resolve(data);
+          }else{
+            reject(data.message)
+          }
+
+        },
+        (err)=>{
+          reject(err)
+        }
+      )
+
+    })
+  }
+
+  updateProduct(id: String, product: Product, image: File | String){
+    return new Promise<void>((resolve, reject) => {
+      let productData: FormData = new FormData();
+      if (typeof image === 'string') {
+        product.image = image;
+      }else{
+        // @ts-ignore
+        productData.append('image', image);
+      }
+      productData.append('product', JSON.stringify(product));
+
+      this.http.put(this.api+'/products/'+id, productData).subscribe(
+        (data : any = Data)=>{
+          if (data.status === 200) {
+            resolve(data);
+          }else{
+            reject(data);
+          }
+        },
+        (err)=>{
+          reject(err)
+        }
+      )
+    })
+  }
+
+  deleteProduct(id: String){
+    return new Promise<void>((resolve, reject) => {
+      this.http.delete(this.api+'/products/'+id).subscribe(
+        (data : any = Data )=>{
+          this.getProducts();
+          resolve(data);
+        },
+        (err)=>{
+          reject(err)
+        }
+      )
+    })
+  }
+
 }
