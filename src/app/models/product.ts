@@ -2,8 +2,8 @@ export class Product {
   _id!: string;
   name!: string;
   price!: number;
-  stock!: Number;
-  image!: String;
-  userId!: String;
+  stock!: number;
+  image!: string;
+  userId!: string;
   createAt!: Date;
 }

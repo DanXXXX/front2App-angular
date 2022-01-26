@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { rejects } from 'assert';
-import { Subject } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Data } from '../models/data';
 import { Product } from '../models/product';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { Subject } from 'rxjs';
+import { Data } from '../models/data';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +18,7 @@ export class ProductService {
 
 
   constructor(private http: HttpClient) { }
+
   emitProduct() {
     this.products$.next(this.products);
   }
@@ -41,14 +41,14 @@ export class ProductService {
     )
   }
 
-  getProductById(id: String){
-    return new Promise<void>((resolve, reject) => {
+  getProductById(id: string){
+    return new Promise((resolve, reject) => {
       this.http.get(this.api+'/products/'+id).subscribe(
         (data: any = Data)=>{
           if (data.status === 200) {
             resolve(data.result)
           }else{
-            rejects(data.message);
+            reject(data.message);
           }
         },
         (err)=>{
@@ -59,7 +59,7 @@ export class ProductService {
   }
 
   createNewProduct(product: Product, image: File){
-    return new Promise<void>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       let productData: FormData = new FormData();
       productData.append('product', JSON.stringify(product));
       productData.append('image', image);
@@ -70,9 +70,8 @@ export class ProductService {
             this.getProducts();
             resolve(data);
           }else{
-            reject(data.message)
+            reject(data.message);
           }
-
         },
         (err)=>{
           reject(err)
@@ -82,8 +81,8 @@ export class ProductService {
     })
   }
 
-  updateProduct(id: String, product: Product, image: File | String){
-    return new Promise<void>((resolve, reject) => {
+  updateProduct(id: string, product: Product, image: File | string){
+    return new Promise((resolve, reject) => {
       let productData: FormData = new FormData();
       if (typeof image === 'string') {
         product.image = image;
@@ -108,12 +107,12 @@ export class ProductService {
     })
   }
 
-  deleteProduct(id: String){
-    return new Promise<void>((resolve, reject) => {
+  deleteProduct(id: string){
+    return new Promise((resolve, reject) => {
       this.http.delete(this.api+'/products/'+id).subscribe(
-        (data : any = Data )=>{
+        ()=>{
           this.getProducts();
-          resolve(data);
+          resolve(true);
         },
         (err)=>{
           reject(err)

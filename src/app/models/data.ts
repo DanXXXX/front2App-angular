@@ -1,5 +1,5 @@
 export class Data {
-  status!: Number;
-  message!: String;
+  status!: number;
+  message!: string;
   result!: any;
 }

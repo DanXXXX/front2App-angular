@@ -9,8 +9,8 @@ import { environment } from '../../environments/environment';
 export class AuthService {
 
   private api = environment.api;
-  token: any | String;
-  userId: any | String;
+  token: any | string;
+  userId: any | string;
   isAuth$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
