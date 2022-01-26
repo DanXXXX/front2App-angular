@@ -12,16 +12,20 @@ export class ShopComponent implements OnInit {
 
   products!: Product[];
   productSub!: Subscription;
+  loading: boolean = false;
   userId: any;
+
 
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.productSub = this.productService.products$.subscribe(
       (products: Product[])=>{
+        this.loading = true;
         this.products = products;
       },
       (err)=>{
+        this.loading = false;
         console.error(err);
 
       }
